@@ -383,7 +383,7 @@ async def start_command(_, message):
         umention = f"[{sender_name}](tg://user?id={int(sender_id)})"
         return await LOG_CLIENT.send_message(
             LOG_GROUP_ID,
-            f"{message.from_user.mention} has just started Bot.\n\n**USER ID:** {sender_id}\n**USER NAME:** {sender_name}",
+            f"{message.from_user.mention} Bot'a yeni başladı.\n\n**KULLANICI KIMLIĞI:** {sender_id}\n** ADI:** {sender_name}",
         )
     return
 
@@ -391,12 +391,12 @@ async def start_command(_, message):
 async def help_parser(name, keyboard=None):
     if not keyboard:
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
-    return (
-        """Hello {first_name},
+    return ((
+        """Merhaba {first_name},
 
-Click on the buttons for more information.
+Daha fazla bilgi için düğmelere tıklayın.
 
-All commands can be used with: /
+Tüm komutlar: /
 """.format(
             first_name=name
         ),
@@ -441,12 +441,12 @@ All commands can be used with: /
                 pass
             else:
                 return await query.answer(
-                    "This Button can only be accessed by SUDO USERS",
+                    "Bu Düğmeye yalnızca SUDO KULLANICILARI tarafından erişilebilir",
                     show_alert=True,
                 )
         text = (
             "{} **{}**:\n".format(
-                "Here is the help for", HELPABLE[module].__MODULE__
+                "İşte yardım", HELPABLE[module].__MODULE__
             )
             + HELPABLE[module].__HELP__
         )
@@ -454,12 +454,12 @@ All commands can be used with: /
             [
                 [
                     InlineKeyboardButton(
-                        text="↪️ Back", callback_data="help_back"
+                        text="↪️ Geri", callback_data="help_back"
                     ),
                     InlineKeyboardButton(
-                        text="🔄 Close", callback_data="close"
+                        text="🔄 Kapat", callback_data="close"
                     ),
-                ],
+                ],(
             ]
         )
 
