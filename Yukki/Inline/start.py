@@ -8,15 +8,15 @@ from Yukki import BOT_USERNAME
 def setting_markup2():
     buttons = [
         [
-            InlineKeyboardButton(text="🔈 Audio Quality", callback_data="AQ"),
-            InlineKeyboardButton(text="🎚 Audio Volume", callback_data="AV"),
+            InlineKeyboardButton(text="🔈 Ses Kalitesi", callback_data="AQ"),
+            InlineKeyboardButton(text="🎚 Ses Düzeyi", callback_data="AV"),
         ],
         [
             InlineKeyboardButton(
-                text="👥 Authorized Users", callback_data="AU"
+                text="👥 Yetkili Kullanıcılar", callback_data="AU"
             ),
             InlineKeyboardButton(
-                text="💻 Dashboard", callback_data="Dashboard"
+                text="💻 Tablo", callback_data="Dashboard"
             ),
         ],
         [
