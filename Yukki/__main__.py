@@ -39,7 +39,7 @@ HELPABLE = {}
 
 async def initiate_bot():
     with console.status(
-        "[magenta] Finalizing Booting...",
+        "[magenta] Önyükleme Sonlandırılıyor...",
     ) as status:
         ass_count = len(random_assistant)
         if ass_count == 0:
@@ -94,12 +94,12 @@ async def initiate_bot():
             status="[bold blue]Importation Completed!",
         )
     console.print(
-        "[bold green]Congrats!! Yukki Music Bot has started successfully!\n"
+        "[bold green]Tebrikler!! Efsane Music Bot başarıyla başladı!\n"
     )
     try:
         await app.send_message(
             LOG_GROUP_ID,
-            "<b>Congrats!! Music Bot has started successfully!</b>",
+            "<b>Tebrikler!! Music Bot başarıyla başladı!</b>",
         )
     except Exception as e:
         print(
@@ -118,11 +118,11 @@ async def initiate_bot():
         try:
             await ASS_CLI_1.send_message(
                 LOG_GROUP_ID,
-                "<b>Congrats!! Assistant Client 1  has started successfully!</b>",
+                "<b>Tebrikler!! Yardımcı İstemci 1 başarıyla başlatıldı!</b>",
             )
         except Exception as e:
             print(
-                "\nAssistant Account 1 has failed to access the log Channel. Make sure that you have added your Assistant to your log channel and promoted as admin!"
+                "\nYardımcı Hesap 1 günlük Kanalı'na erişemedi. Asistanınızı günlük kanalınıza eklediğinizden ve admi olarak tanıttığınızdan emin olunn!"
             )
             console.print(f"\n[red]Stopping Bot")
             return
@@ -137,7 +137,7 @@ async def initiate_bot():
         try:
             await ASS_CLI_2.send_message(
                 LOG_GROUP_ID,
-                "<b>Congrats!! Assistant Client 2 has started successfully!</b>",
+                "<b>Tebrikler!! Yardımcı İstemci 2 başarıyla başlatıldı!</b>",
             )
         except Exception as e:
             print(
@@ -156,7 +156,7 @@ async def initiate_bot():
         try:
             await ASS_CLI_3.send_message(
                 LOG_GROUP_ID,
-                "<b>Congrats!! Assistant Client 3 has started successfully!</b>",
+                "<b>Tebrikler!! Yardımcı İstemci 3 başarıyla başlatıldı!</b>",
             )
         except Exception as e:
             print(
@@ -165,8 +165,8 @@ async def initiate_bot():
             console.print(f"\n[red]Stopping Bot")
             return
         try:
-            await ASS_CLI_3.join_chat("OfficialYukki")
-            await ASS_CLI_3.join_chat("YukkiSupport")
+            await ASS_CLI_3.join_chat("Sohbetdestek")
+            await ASS_CLI_3.join_chat("BotDestekGrubu")
         except:
             pass
         console.print(f"├[red] Assistant 3 Started as {ASSNAME3}!")
@@ -175,7 +175,7 @@ async def initiate_bot():
         try:
             await ASS_CLI_4.send_message(
                 LOG_GROUP_ID,
-                "<b>Congrats!! Assistant Client 4 has started successfully!</b>",
+                "<b>Tebrikler!! Yardımcı İstemci 4 başarıyla başlatıldı!</b>",
             )
         except Exception as e:
             print(
@@ -184,7 +184,7 @@ async def initiate_bot():
             console.print(f"\n[red]Stopping Bot")
             return
         try:
-            await ASS_CLI_4.join_chat("OfficialYukki")
+            await ASS_CLI_4.join_chat("Sohbetdestek")
             await ASS_CLI_4.join_chat("YukkiSupport")
         except:
             pass
@@ -194,7 +194,7 @@ async def initiate_bot():
         try:
             await ASS_CLI_5.send_message(
                 LOG_GROUP_ID,
-                "<b>Congrats!! Assistant Client 5 has started successfully!</b>",
+                "<b>Tebrikler!! Yardımcı İstemci 5 başarıyla başlatıldı!</b>",
             )
         except Exception as e:
             print(
@@ -203,8 +203,8 @@ async def initiate_bot():
             console.print(f"\n[red]Stopping Bot")
             return
         try:
-            await ASS_CLI_5.join_chat("OfficialYukki")
-            await ASS_CLI_5.join_chat("YukkiSupport")
+            await ASS_CLI_5.join_chat("Sohbetdestek")
+            await ASS_CLI_5.join_chat("BotDestekGrubu")
         except:
             pass
         console.print(f"├[red] Assistant 5 Started as {ASSNAME5}!")
@@ -213,7 +213,7 @@ async def initiate_bot():
         try:
             await LOG_CLIENT.send_message(
                 LOG_GROUP_ID,
-                "<b>Congrats!! Logger Client has started successfully!</b>",
+                "<b>Tebrikler!! Günlükçü İstemcisi başarıyla başlatıldı!</b>",
             )
         except Exception as e:
             print(
@@ -222,8 +222,8 @@ async def initiate_bot():
             console.print(f"\n[red]Stopping Bot")
             return
         try:
-            await LOG_CLIENT.join_chat("OfficialYukki")
-            await LOG_CLIENT.join_chat("YukkiSupport")
+            await LOG_CLIENT.join_chat("Sohbetdestek")
+            await LOG_CLIENT.join_chat("BOTDESTEKGRUBU")
         except:
             pass
     console.print(f"└[red] Yukki Music Bot Boot Completed.")
@@ -241,11 +241,11 @@ async def initiate_bot():
     console.print(f"\n[red]Stopping Bot")
 
 
-home_text_pm = f"""Hello ,
+home_text_pm = f"""Merhaba,
 My name is {BOT_NAME}.
-A Telegram Music+Video Streaming bot with some useful features.
+Bazı kullanışlı özelliklere sahip bir Telegram Music + Video Akış botu.
 
-All commands can be used with: / """
+Tüm komutlar: / """
 
 
 @app.on_message(filters.command("help") & filters.private)
