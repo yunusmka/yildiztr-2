@@ -326,7 +326,7 @@ async def start_command(_, message):
             searched_text = f"""
 🔍__**Video İzleme Bilgileri**__
 
-❇️**Başlık6:** {title}
+❇️**Başlık:** {title}
 
 ⏳**Süre:** {duration} Mins
 👀**Görünümler:** `{views}`
