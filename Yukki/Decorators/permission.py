@@ -10,27 +10,27 @@ def PermissionCheck(mystic):
         a = await app.get_chat_member(message.chat.id, BOT_ID)
         if a.status != "administrator":
             return await message.reply_text(
-                "I need to be admin with some permissions:\n"
-                + "\n- **can_manage_voice_chats:** To manage voice chats"
-                + "\n- **can_delete_messages:** To delete Bot's Searched Waste"
-                + "\n- **can_invite_users**: For inviting assistant to chat."
+                "Bazı izinlerle yönetici olmalıyım:\n"
+                + "\n- **Sesli_Sohbet_Yönetme:** Sesli sohbetleri yönetmek için"
+                + "\n- **Mesaj_Silme_Yetkisi:** Bot'un Aranan artıklarını silmek için"
+                + "\n- **Baglantı_Yolu_Davet**: Asistanı sohbete davet etmek için."
             )
         if not a.can_manage_voice_chats:
             await message.reply_text(
-                "I don't have the required permission to perform this action."
-                + "\n**Permission:** __MANAGE VOICE CHATS__"
+                "Bu eylemi gerçekleştirmek için gerekli iznim yok."
+                + "\n**İzin:** __SESLI SOHBETLERI YÖNETME__"
             )
             return
         if not a.can_delete_messages:
             await message.reply_text(
-                "I don't have the required permission to perform this action."
-                + "\n**Permission:** __DELETE MESSAGES__"
+                "Bu eylemi gerçekleştirmek için gerekli iznim yok."
+                + "\n**İzin:** __İLETILERİ SİL__"
             )
             return
         if not a.can_invite_users:
             await message.reply_text(
                 "I don't have the required permission to perform this action."
-                + "\n**Permission:** __INVITE USERS VIA LINK__"
+                + "\n**İzin:** __KULLANICILARI BAĞLANTIYLA DAVET ETME__"
             )
             return
         return await mystic(_, message)
