@@ -362,7 +362,7 @@ async def start_command(_, message):
                 umention = f"[{sender_name}](tg://user?id={int(sender_id)})"
                 return await LOG_CLIENT.send_message(
                     LOG_GROUP_ID,
-                    f"{message.from_user.mention} has just started bot to check <code>VIDEO INFORMATION</code>\n\n**USER ID:** {sender_id}\n**USER NAME:** {sender_name}",
+                    f"{message.from_user.mention} bot'ı kontrol etmek için yeni başlattı <code>Vİdeo BİlGİLerİ</code>\n\n**KULLANICI KİMLİĞİ:** {sender_id}\n**KULLANICI ADI:** {sender_name}",
                 )
             return
     out = private_panel()
@@ -427,11 +427,11 @@ async def help_button(client, query):
     next_match = re.match(r"help_next\((.+?)\)", query.data)
     back_match = re.match(r"help_back", query.data)
     create_match = re.match(r"help_create", query.data)
-    top_text = f"""Hello {query.from_user.first_name},
+    top_text = f"""Merhaba {query.from_user.first_name},
 
-Click on the buttons for more information.
+Daha fazla bilgi için düğmelere tıklayın.
 
-All commands can be used with: /
+Tüm komutlar: /
  """
     if mod_match:
         module = mod_match.group(1)
