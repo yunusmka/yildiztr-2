@@ -16,20 +16,20 @@ def logging(mystic):
             except:
                 try:
                     if not message.reply_to_message:
-                        what = "Command Given Only"
+                        what = "Replied to any file"
                     else:
                         what = "Replied to any file."
                 except:
                     what = "Command"
             logger_text = f"""
-__**New {what}**__
+__**Yeni {what}**__
 
-**Chat:** {message.chat.title} [`{message.chat.id}`]
-**User:** {message.from_user.mention}
-**Username:** @{message.from_user.username}
-**User ID:** `{message.from_user.id}`
-**Chat Link:** {chatusername}
-**Query:** {message.text}"""
+**Sohbet:** {message.chat.title} [`{message.chat.id}`]
+**Kullanıcı:** {message.from_user.mention}
+**Kullanıcı adı:** @{message.from_user.username}
+**Kullanıcı Kimliği:** `{message.from_user.id}`
+**Sohbet Bağlantısı:** {chatusername}
+**Sorgu:** {message.text}"""
             if LOG_CLIENT != "None":
                 await LOG_CLIENT.send_message(
                     LOG_GROUP_ID,
