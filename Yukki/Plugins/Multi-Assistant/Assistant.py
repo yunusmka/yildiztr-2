@@ -47,14 +47,14 @@ async def awaiting_message(client, message):
     else:
         flood[str(user_id)] = 1
     if flood[str(user_id)] > 5:
-        await message.reply_text("Spam Detected. User Blocked")
+        await message.reply_text("İstenmeyen Posta Algılandı. Kullanıcı Engellendi")
         await client.send_message(
             LOG_GROUP_ID,
-            f"**Spam Detect Block On Assistant**\n\n- **Blocked User:** {message.from_user.mention}\n- **User ID:** {message.from_user.id}",
+            f"**Asistanda spam algılama bloğu**\n\n- **Engellenen Kullanıcı:** {message.from_user.mention}\n- **Kullanıcı Kimliği:** {message.from_user.id}",
         )
         return await client.block_user(user_id)
     await message.reply_text(
-        f"Hello, I am {MUSIC_BOT_NAME}'s Assistant.\n\nPlease dont spam here , else you'll get blocked.\nFor more Help start :- @{BOT_USERNAME}"
+        f"Merhaba, ben. {MUSIC_BOT_NAME} Asistan.\n\nLütfen burada spam yapmayın, aksi takdirde engellenirsiniz.\nDaha fazla Yardım başlangıcı için :- @{BOT_USERNAME}"
     )
 
 
@@ -68,13 +68,13 @@ async def awaiting_message(client, message):
 async def pm_approve(client, message):
     if not message.reply_to_message:
         return await eor(
-            message, text="Reply to a user's message to approve."
+            message, text="Onaylamak için kullanıcının iletisini yanıtlama."
         )
     user_id = message.reply_to_message.from_user.id
     if await is_pmpermit_approved(user_id):
-        return await eor(message, text="User is already approved to pm")
+        return await eor(message, text="Kullanıcı pm için zaten onaylandı")
     await approve_pmpermit(user_id)
-    await eor(message, text="User is approved to pm")
+    await eor(message, text="Kullanıcı pm için onaylandı")
 
 
 @Client.on_message(
@@ -87,11 +87,11 @@ async def pm_approve(client, message):
 async def pm_disapprove(client, message):
     if not message.reply_to_message:
         return await eor(
-            message, text="Reply to a user's message to disapprove."
+            message, text="Onaylamamak için kullanıcının iletisini yanıtlama."
         )
     user_id = message.reply_to_message.from_user.id
     if not await is_pmpermit_approved(user_id):
-        await eor(message, text="User is already disapproved to pm")
+        await eor(message, text="Kullanıcı zaten PM'ye onaylanmadı")
         async for m in client.iter_history(user_id, limit=6):
             if m.reply_markup:
                 try:
@@ -100,7 +100,7 @@ async def pm_disapprove(client, message):
                     pass
         return
     await disapprove_pmpermit(user_id)
-    await eor(message, text="User is disapproved to pm")
+    await eor(message, text="Kullanıcı PM için onaylanmadı")
 
 
 @Client.on_message(
@@ -112,9 +112,9 @@ async def pm_disapprove(client, message):
 )
 async def block_user_func(client, message):
     if not message.reply_to_message:
-        return await eor(message, text="Reply to a user's message to block.")
+        return await eor(message, text="Kullanıcının engelleme iletisini yanıtlama.")
     user_id = message.reply_to_message.from_user.id
-    await eor(message, text="Successfully blocked the user")
+    await eor(message, text="Kullanıcı başarıyla engellendi")
     await client.block_user(user_id)
 
 
@@ -128,11 +128,11 @@ async def block_user_func(client, message):
 async def unblock_user_func(client, message):
     if not message.reply_to_message:
         return await eor(
-            message, text="Reply to a user's message to unblock."
+            message, text="Engellemeyi kaldırmak için kullanıcının iletisini yanıtlama."
         )
     user_id = message.reply_to_message.from_user.id
     await client.unblock_user(user_id)
-    await eor(message, text="Successfully Unblocked the user")
+    await eor(message, text="Kullanıcının Engeli Başarıyla Kaldırıldı")
 
 
 @Client.on_message(
@@ -148,7 +148,7 @@ async def set_pfp(client, message):
     photo = await message.reply_to_message.download()
     try:
         await client.set_profile_photo(photo=photo)
-        await eor(message, text="Successfully Changed PFP.")
+        await eor(message, text="PFP Başarıyla Değiştirildi.")
     except Exception as e:
         await eor(message, text=e)
 
@@ -162,16 +162,16 @@ async def set_pfp(client, message):
 )
 async def set_bio(client, message):
     if len(message.command) == 1:
-        return await eor(message, text="Give some text to set as bio.")
+        return await eor(message, text="Bio olarak ayarlamak için biraz metin ver.")
     elif len(message.command) > 1:
         bio = message.text.split(None, 1)[1]
         try:
             await client.update_profile(bio=bio)
-            await eor(message, text="Changed Bio.")
+            await eor(message, text="Değiştirilen Biyografi.")
         except Exception as e:
             await eor(message, text=e)
     else:
-        return await eor(message, text="Give some text to set as bio.")
+        return await eor(message, text="Bio olarak ayarlamak için biraz metin ver.")
 
 
 async def eor(msg: Message, **kwargs):
