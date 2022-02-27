@@ -32,14 +32,14 @@ from Yukki.Utilities.youtube import (get_m3u8, get_yt_info_id,
 
 loop = asyncio.get_event_loop()
 
-__MODULE__ = "Play"
+__MODULE__ = "oynat"
 __HELP__ = f"""
 
-/play [Reply to any Audio or Video] or [YT Link] or [Music Name]
-- Stream Audio + Video on Voice Chat
+/oynat [Herhangi bir Ses veya Videoyu Yanıtlayın] veya [YT Bağlantısı] veya [Müzik Adı]
+- Sesli Sohbette Ses + Video Akışı
 
-/song [Youtube URL or Search Query] 
-- Download the particular query in audio or video format.
+/bul [Youtube URL'si veya Arama Sorgusu] 
+- Belirli bir sorguyu ses veya video biçiminde indirme.
 """
 
 
@@ -51,7 +51,7 @@ async def choose_playmode(_, CallbackQuery):
     videoid, duration, user_id = callback_request.split("|")
     if CallbackQuery.from_user.id != int(user_id):
         return await CallbackQuery.answer(
-            "This is not for you! Search You Own Song.", show_alert=True
+            "Bu senin için değil! Kendi Şarkınızı Arayın.", show_alert=True
         )
     buttons = choose_markup(videoid, duration, user_id)
     await CallbackQuery.edit_message_reply_markup(
@@ -65,7 +65,7 @@ async def quality_markup(_, CallbackQuery):
     if not limit:
         await CallbackQuery.message.delete()
         return await CallbackQuery.message.reply_text(
-            "**No Limit Defined for Video Calls**\n\nSet a Limit for Number of Maximum Video Calls allowed on Bot by /set_video_limit [Sudo Users Only]"
+            "**Görüntülü Aramalar İçin Sınır Tanımlanmadı**\n\nBot'ta İzin Verilen Maksimum Görüntülü Arama Sayısı İçin Bir Sınır Ayarlama /set_video_limit [Yalnızca Sudo Kullanıcıları]"
         )
     count = len(await get_active_video_chats())
     if int(count) == int(limit):
@@ -73,7 +73,7 @@ async def quality_markup(_, CallbackQuery):
             pass
         else:
             return await CallbackQuery.answer(
-                "Sorry! Bot only allows limited number of video calls due to CPU overload issues. Other chats are using video call right now. Try switching to audio or try again later",
+                "Pardon! Bot, CPU aşırı yükleme sorunları nedeniyle yalnızca sınırlı sayıda görüntülü aramaya izin verir. Diğer sohbetler şu anda görüntülü arama kullanıyor. Sese geçmeyi deneyin veya daha sonra yeniden deneyin",
                 show_alert=True,
             )
     if CallbackQuery.message.chat.id not in db_mem:
@@ -82,7 +82,7 @@ async def quality_markup(_, CallbackQuery):
         read1 = db_mem[CallbackQuery.message.chat.id]["live_check"]
         if read1:
             return await CallbackQuery.answer(
-                "Live Streaming Playing...Stop it to play music",
+                "Canlı Yayın Oynatıyor... Müzik çalmak için durdurun",
                 show_alert=True,
             )
         else:
@@ -95,7 +95,7 @@ async def quality_markup(_, CallbackQuery):
     videoid, duration, user_id = callback_request.split("|")
     if CallbackQuery.from_user.id != int(user_id):
         return await CallbackQuery.answer(
-            "This is not for you! Search You Own Song.", show_alert=True
+            "Bu senin için değil! Kendi Şarkınızı Arayın.", show_alert=True
         )
     buttons = stream_quality_markup(videoid, duration, user_id)
     await CallbackQuery.edit_message_reply_markup(
@@ -109,7 +109,7 @@ async def Live_Videos_Stream(_, CallbackQuery):
     if not limit:
         await CallbackQuery.message.delete()
         return await CallbackQuery.message.reply_text(
-            "**No Limit Defined for Video Calls**\n\nSet a Limit for Number of Maximum Video Calls allowed on Bot by /set_video_limit [Sudo Users Only]"
+            "**Görüntülü Aramalar İçin Sınır Tanımlanmadı**\n\nBot'ta İzin Verilen Maksimum Görüntülü Arama Sayısı İçin Bir Sınır Ayarlama /set_video_limit [Yalnızca Sudo Kullanıcıları]"
         )
     count = len(await get_active_video_chats())
     if int(count) == int(limit):
@@ -117,7 +117,7 @@ async def Live_Videos_Stream(_, CallbackQuery):
             pass
         else:
             return await CallbackQuery.answer(
-                "Sorry! Bot only allows limited number of video calls due to CPU overload issues. Other chats are using video call right now. Try switching to audio or try again later",
+                "Pardon! Bot, CPU aşırı yükleme sorunları nedeniyle yalnızca sınırlı sayıda görüntülü aramaya izin verir. Diğer sohbetler şu anda görüntülü arama kullanıyor. Sese geçmeyi deneyin veya daha sonra yeniden deneyin",
                 show_alert=True,
             )
     if CallbackQuery.message.chat.id not in db_mem:
@@ -129,18 +129,18 @@ async def Live_Videos_Stream(_, CallbackQuery):
     quality, videoid, duration, user_id = callback_request.split("|")
     if CallbackQuery.from_user.id != int(user_id):
         return await CallbackQuery.answer(
-            "This is not for you! Search You Own Song.", show_alert=True
+            "Bu senin için değil! Kendi Şarkınızı Arayın.", show_alert=True
         )
     await CallbackQuery.message.delete()
     title, duration_min, duration_sec, thumbnail = get_yt_info_id(videoid)
-    await CallbackQuery.answer(f"Processing:- {title[:20]}", show_alert=True)
+    await CallbackQuery.answer(f"İşleniyor:- {title[:20]}", show_alert=True)
     theme = await check_theme(chat_id)
     chat_title = await specialfont_to_normal(chat_title)
     thumb = await gen_thumb(thumbnail, title, user_id, theme, chat_title)
     nrs, ytlink = await get_m3u8(videoid)
     if nrs == 0:
         return await CallbackQuery.message.reply_text(
-            "Video Formats not Found.."
+            "Video Biçimleri Bulunamadı.."
         )
     await start_live_stream(
         CallbackQuery,
@@ -165,28 +165,28 @@ async def Videos_Stream(_, CallbackQuery):
     quality, videoid, duration, user_id = callback_request.split("|")
     if CallbackQuery.from_user.id != int(user_id):
         return await CallbackQuery.answer(
-            "This is not for you! Search You Own Song.", show_alert=True
+            "Bu senin için değil! Kendi Şarkınızı Arayın.", show_alert=True
         )
     if str(duration) == "None":
         buttons = livestream_markup(quality, videoid, duration, user_id)
         return await CallbackQuery.edit_message_text(
-            "**Live Stream Detected**\n\nWant to play live stream? This will stop the current playing musics(if any) and will start streaming live video.",
+            "**Canlı Akış Algılandı**\n\nCanlı yayın oynamak ister misiniz? Bu, geçerli müzik çalmayı durdurur (varsa) ve canlı video akışına başlar.",
             reply_markup=InlineKeyboardMarkup(buttons),
         )
     await CallbackQuery.message.delete()
     title, duration_min, duration_sec, thumbnail = get_yt_info_id(videoid)
     if duration_sec > DURATION_LIMIT:
         return await CallbackQuery.message.reply_text(
-            f"**Duration Limit Exceeded**\n\n**Allowed Duration: **{DURATION_LIMIT_MIN} minute(s)\n**Received Duration:** {duration_min} minute(s)"
+            f"**Süre Sınırı Aşıldı**\n\n**İzin Verilen Süre: **{DURATION_LIMIT_MIN} dakika(s)\n**Alınan Süre:** {duration_min} dakika(s)"
         )
-    await CallbackQuery.answer(f"Processing:- {title[:20]}", show_alert=True)
+    await CallbackQuery.answer(f"İşleniyor:- {title[:20]}", show_alert=True)
     theme = await check_theme(chat_id)
     chat_title = await specialfont_to_normal(chat_title)
     thumb = await gen_thumb(thumbnail, title, user_id, theme, chat_title)
     nrs, ytlink = await get_m3u8(videoid)
     if nrs == 0:
         return await CallbackQuery.message.reply_text(
-            "Video Formats not Found.."
+            "Video Biçimleri Bulunamadı.."
         )
     await start_video_stream(
         CallbackQuery,
