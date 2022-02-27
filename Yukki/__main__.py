@@ -260,47 +260,22 @@ async def start_command(_, message):
         name = (message.text.split(None, 1)[1]).lower()
         if name[0] == "s":
             sudoers = await get_sudoers()
-            text = "⭐️<u> **Sahipleri:**</u>\n"
-            sex = 0
-            for x in OWNER_ID:
+            text = "**__Bot Sudo Kullanıcıları Listesi:-__**\n\n"
+            j = 0
+            for count, user_id in enumerate(sudoers, 1):
                 try:
-                    user = await app.get_users(x)
+                    user = await app.get_users(user_id)
                     user = (
                         user.first_name if not user.mention else user.mention
                     )
-                    sex += 1
                 except Exception:
                     continue
-                text += f"{sex}➤ {user}\n"
-            smex = 0
-            for count, user_id in enumerate(sudoers, 1):
-                if user_id not in OWNER_ID:
-                    try:
-                        user = await app.get_users(user_id)
-                        user = (
-                            user.first_name
-                            if not user.mention
-                            else user.mention
-                        )
-                        if smex == 0:
-                            smex += 1
-                            text += "\n⭐️<u> **Sudo Kullanıcıları:**</u>\n"
-                        sex += 1
-                        text += f"{sex}➤ {user}\n"
-                    except Exception:
-                        continue
-            if not text:
+                text += f"➤ {user}\n"
+                j += 1
+            if j == 0:
                 await message.reply_text("Sudo Kullanıcısı Yok")
             else:
                 await message.reply_text(text)
-            if await is_on_off(5):
-                sender_id = message.from_user.id
-                sender_name = message.from_user.first_name
-                umention = f"[{sender_name}](tg://user?id={int(sender_id)})"
-                return await LOG_CLIENT.send_message(
-                    LOG_GROUP_ID,
-                    f"{message.from_user.mention} bot'u kontrol etmek için yeni başlattı <code>SUDOLIST</code>\n\n**USER ID:** {sender_id}\n**USER NAME:** {sender_name}",
-                )
         if name == "help":
             text, keyboard = await help_parser(message.from_user.mention)
             await message.delete()
@@ -310,7 +285,7 @@ async def start_command(_, message):
                 reply_markup=keyboard,
             )
         if name[0] == "i":
-            m = await message.reply_text("🔎 Bilgi Getir!")
+            m = await message.reply_text("🔎 Bilgi Alınıyor!")
             query = (str(name)).replace("info_", "", 1)
             query = f"https://www.youtube.com/watch?v={query}"
             results = VideosSearch(query, limit=1)
@@ -325,22 +300,19 @@ async def start_command(_, message):
                 published = result["publishedTime"]
             searched_text = f"""
 🔍__**Video İzleme Bilgileri**__
-
 ❇️**Başlık:** {title}
-
 ⏳**Süre:** {duration} Mins
-👀**Görünümler:** `{views}`
-⏰**Yayınlanma Zamanı:** {published}
-🎥**Kanal Adı:** {channel}
-📎**Kanal Bağlantısı:** [Visit From Here]({channellink})
-🔗**Video Bağlantısı:** [Link]({link})
-
-⚡️ __Arama Güç tarafından {BOT_NAME}__"""
+👀**Görüntüleme:** `{views}`
+⏰**Yayınlanma Süresi:** {published}
+🎥**Kanal ismi:** {channel}
+📎**Kanal Bağlantısı:** [Buradan Ziyaret Edin]({channellink})
+🔗**Video bağlantısı:** [Link]({link})
+⚡️ __Aranıyor Destekleyen {BOT_NAME}t__"""
             key = InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton(
-                            text="🎥 Youtube Videosunu İzleyin", url=f"{link}"
+                            text="🎥 Youtube Videosunu İzle", url=f"{link}"
                         ),
                         InlineKeyboardButton(
                             text="🔄 Kapat", callback_data="close"
@@ -349,43 +321,18 @@ async def start_command(_, message):
                 ]
             )
             await m.delete()
-            await app.send_photo(
+            return await app.send_photo(
                 message.chat.id,
                 photo=thumbnail,
                 caption=searched_text,
                 parse_mode="markdown",
                 reply_markup=key,
             )
-            if await is_on_off(5):
-                sender_id = message.from_user.id
-                sender_name = message.from_user.first_name
-                umention = f"[{sender_name}](tg://user?id={int(sender_id)})"
-                return await LOG_CLIENT.send_message(
-                    LOG_GROUP_ID,
-                    f"{message.from_user.mention} bot'ı kontrol etmek için yeni başlattı <code>Vİdeo BİlGİLerİ</code>\n\n**KULLANICI KİMLİĞİ:** {sender_id}\n**KULLANICI ADI:** {sender_name}",
-                )
-            return
     out = private_panel()
-    if START_IMG_URL is None:
-        await message.reply_text(
-            home_text_pm,
-            reply_markup=InlineKeyboardMarkup(out[1]),
-        )
-    else:
-        await message.reply_photo(
-            photo=START_IMG_URL,
-            caption=home_text_pm,
-            reply_markup=InlineKeyboardMarkup(out[1]),
-        )
-    if await is_on_off(5):
-        sender_id = message.from_user.id
-        sender_name = message.from_user.first_name
-        umention = f"[{sender_name}](tg://user?id={int(sender_id)})"
-        return await LOG_CLIENT.send_message(
-            LOG_GROUP_ID,
-            f"{message.from_user.mention} Bot'a yeni başladı.\n\n**KULLANICI KIMLIĞI:** {sender_id}\n** ADI:** {sender_name}",
-        )
-    return
+    return await message.reply_text(
+        home_text_pm,
+        reply_markup=InlineKeyboardMarkup(out[1]),
+    )
 
 
 async def help_parser(name, keyboard=None):
@@ -393,10 +340,8 @@ async def help_parser(name, keyboard=None):
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
     return (
         """Merhaba {first_name},
-
-Daha fazla bilgi için düğmelere tıklayın.
-
-Tüm komutlar: /
+Daha fazla bilgi için butonlara tıklayın.
+Tüm komutlar ile kullanılabilir: /
 """.format(
             first_name=name
         ),
