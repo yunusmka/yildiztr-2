@@ -92,7 +92,7 @@ async def admins(_, message: Message):
         await remove_active_video_chat(chat_id)
         await stop_stream(chat_id)
         await message.reply_text(
-            f"🎧 Sesli Sohbet Sonu 👉 Durduran {message.from_user.mention}!"
+            f"🎧 Sesli Sohbet Sonu 👀 Durduran {message.from_user.mention}!"
         )
     if message.command[0][1] == "t":
         if message.chat.id not in db_mem:
