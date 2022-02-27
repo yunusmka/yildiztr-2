@@ -36,7 +36,7 @@ async def gen_thumb(thumbnail, title, userid, theme, ctitle):
     font2 = ImageFont.truetype("Utils/finalfont.ttf", 60)
     draw.text(
         (20, 45),
-        f"Playing on: {ctitle[:14]}...",
+        f"Talia Müzik Oynatılıyor: {ctitle[:14]}...",
         fill="white",
         stroke_width=1,
         stroke_fill="white",
