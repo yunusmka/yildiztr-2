@@ -314,13 +314,13 @@ async def start_markup_check(_, CallbackQuery):
         }
         try:
             await Yukki.pytgcalls.change_volume_call(c_id, volume)
-            await CallbackQuery.answer("Setting Audio Changes ...")
+            await CallbackQuery.answer("Ses Değişikliklerini Ayarlama ...")
         except:
-            return await CallbackQuery.answer("No active Group Call...")
+            return await CallbackQuery.answer("Etkin Grup Çağrısı Yok...")
         await save_start(c_id, "assistant", assis)
         text, buttons = custommarkup()
         await CallbackQuery.edit_message_text(
-            text=f"{text}\n\n**Group:** {c_title}\n**Group ID:** {c_id}\n**Volume Level:** {volume}%\n**Audio Quality:** Default Best",
+            text=f"{text}\n\n**Group:** {c_title}\n**Group ID:** {c_id}\n**Ses Düzeyi:** {volume}%\n**Ses Kalitesi:** Varsayılan En İyi",
             reply_markup=InlineKeyboardMarkup(buttons),
         )
     if command == "MTEN":
@@ -336,13 +336,13 @@ async def start_markup_check(_, CallbackQuery):
         }
         try:
             await Yukki.pytgcalls.change_volume_call(c_id, volume)
-            await CallbackQuery.answer("Setting Audio Changes ...")
+            await CallbackQuery.answer("Ses Değişikliklerini Ayarlama ...")
         except:
-            return await CallbackQuery.answer("No active Group Call...")
+            return await CallbackQuery.answer("Etkin Grup Çağrısı Yok...")
         await save_start(c_id, "assistant", assis)
         text, buttons = custommarkup()
         await CallbackQuery.edit_message_text(
-            text=f"{text}\n\n**Group:** {c_title}\n**Group ID:** {c_id}\n**Volume Level:** {volume}%\n**Audio Quality:** Default Best",
+            text=f"{text}\n\n**Group:** {c_title}\n**Grup Kimliği:** {c_id}\n**Ses Düzeyi:** {volume}%\n**Ses Kalitesi:** Varsayılan En İyi",
             reply_markup=InlineKeyboardMarkup(buttons),
         )
     if command == "PTF":
