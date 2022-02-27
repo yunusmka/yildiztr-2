@@ -358,11 +358,11 @@ __**Yeni Küresel Yasak {MUSIC_BOT_NAME}**__
             ban_text = f"""
 __**Yeni Küresel Yasak {MUSIC_BOT_NAME}**__
 
-**Origin:** {message.chat.title} [`{message.chat.id}`]
-**Sudo User:** {from_user_mention}
-**Banned User:** {mention}
-**Banned User ID:** `{user_id}`
-**Chats:** {number_of_chats}"""
+**Köken:** {message.chat.title} [`{message.chat.id}`]
+**Sudo Kullanıcısı:** {from_user_mention}
+**Yasaklı Kullanıcı:** {mention}
+**Yasaklanmış Kullanıcı Kimliği:** `{user_id}`
+**Sohbet:** {number_of_chats}"""
             try:
                 await m.delete()
             except Exception:
@@ -379,7 +379,7 @@ async def unban_globally(_, message):
     if not message.reply_to_message:
         if len(message.command) != 2:
             await message.reply_text(
-                "**Usage:**\n/ungban [USERNAME | USER_ID]"
+                "**Kullanım:**\n/ungban [USERNAME | USER_ID]"
             )
             return
         user = message.text.split(None, 1)[1]
@@ -389,15 +389,15 @@ async def unban_globally(_, message):
         from_user = message.from_user
         sudoers = await get_sudoers()
         if user.id == from_user.id:
-            await message.reply_text("You want to unblock yourself?")
+            await message.reply_text("Engelini kaldırmak istiyorsun.?")
         elif user.id == BOT_ID:
-            await message.reply_text("Should i unblock myself?")
+            await message.reply_text("Engelimi kaldırmalı mıyım??")
         elif user.id in sudoers:
-            await message.reply_text("Sudo users can't be blocked/unblocked.")
+            await message.reply_text("Sudo kullanıcıları olamaz blocked/unblocked.")
         else:
             is_gbanned = await is_gbanned_user(user.id)
             if not is_gbanned:
-                await message.reply_text("He's already free, why bully him?")
+                await message.reply_text("O zaten özgür, neden ona zorbalık etti?")
             else:
                 await remove_gban_user(user.id)
                 await message.reply_text(f"Ungbanned!")
@@ -407,23 +407,23 @@ async def unban_globally(_, message):
     mention = message.reply_to_message.from_user.mention
     sudoers = await get_sudoers()
     if user_id == from_user_id:
-        await message.reply_text("You want to unblock yourself?")
+        await message.reply_text("Engelini kaldırmak istiyorsun.?")
     elif user_id == BOT_ID:
         await message.reply_text(
-            "Should i unblock myself? But i'm not blocked."
+            "Engelimi kaldırmalı mıyım? Ama engellenmedim.."
         )
     elif user_id in sudoers:
-        await message.reply_text("Sudo users can't be blocked/unblocked.")
+        await message.reply_text("Sudo kullanıcıları olamaz, blocked/unblocked.")
     else:
         is_gbanned = await is_gbanned_user(user_id)
         if not is_gbanned:
-            await message.reply_text("He's already free, why bully him?")
+            await message.reply_text("O zaten özgür, neden ona zorbalık etti?")
         else:
             await remove_gban_user(user_id)
             await message.reply_text(f"Ungbanned!")
 
 
-# Broadcast Message
+# Yayın İletisi (Reklam) 
 
 
 @app.on_message(filters.command("broadcast_pin") & filters.user(SUDOERS))
@@ -452,12 +452,12 @@ async def broadcast_message_pin_silent(_, message):
             except Exception:
                 pass
         await message.reply_text(
-            f"**Broadcasted Message In {sent}  Chats with {pin} Pins.**"
+            f"**Yayınlanan İleti {sent}  Sohbetler {pin} Pins.**"
         )
         return
     if len(message.command) < 2:
         await message.reply_text(
-            "**Usage**:\n/broadcast [MESSAGE] or [Reply to a Message]"
+            "**Kullanım**:\n/broadcast [MESSAGE] veya [Mesaj'a yanıt verme]"
         )
         return
     text = message.text.split(None, 1)[1]
@@ -480,7 +480,7 @@ async def broadcast_message_pin_silent(_, message):
         except Exception:
             pass
     await message.reply_text(
-        f"**Broadcasted Message In {sent} Chats and {pin} Pins.**"
+        f"**Yayınlanan İleti {sent} Sohbetler ve {pin} Pins.**"
     )
 
 
@@ -510,12 +510,12 @@ async def broadcast_message_pin_loud(_, message):
             except Exception:
                 pass
         await message.reply_text(
-            f"**Broadcasted Message In {sent}  Chats with {pin} Pins.**"
+            f"**Yayınlanan İleti {sent}  Sohbetler {pin} Pins.**"
         )
         return
     if len(message.command) < 2:
         await message.reply_text(
-            "**Usage**:\n/broadcast [MESSAGE] or [Reply to a Message]"
+            "**Kullanım**:\n/broadcast [MESSAGE] veya [İletiyi Yanıtlama]"
         )
         return
     text = message.text.split(None, 1)[1]
@@ -538,12 +538,12 @@ async def broadcast_message_pin_loud(_, message):
         except Exception:
             pass
     await message.reply_text(
-        f"**Broadcasted Message In {sent} Chats and {pin} Pins.**"
+        f"**Yayınlanan İleti {sent} Sohbetler ve {pin} Pins.**"
     )
 
 
-@app.on_message(filters.command("broadcast") & filters.user(SUDOERS))
-async def broadcast(_, message):
+@app.on_message(filters.command("reklam") & filters.user(SUDOERS))
+async def reklam(_, message):
     if not message.reply_to_message:
         pass
     else:
@@ -561,11 +561,11 @@ async def broadcast(_, message):
                 sent += 1
             except Exception:
                 pass
-        await message.reply_text(f"**Broadcasted Message In {sent} Chats.**")
+        await message.reply_text(f"**Yayınlanan İleti {sent} Sohbet.**")
         return
     if len(message.command) < 2:
         await message.reply_text(
-            "**Usage**:\n/broadcast [MESSAGE] or [Reply to a Message]"
+            "**Kullanım**:\n/reklam [MESSAGE] veya [İletiyi Yanıtla]"
         )
         return
     text = message.text.split(None, 1)[1]
@@ -581,7 +581,7 @@ async def broadcast(_, message):
             sent += 1
         except Exception:
             pass
-    await message.reply_text(f"**Broadcasted Message In {sent} Chats.**")
+    await message.reply_text(f"**Yayınlanan İleti {sent} Sohbet.**")
 
 
 # Clean
@@ -595,4 +595,4 @@ async def clean(_, message):
     shutil.rmtree(dir1)
     os.mkdir(dir)
     os.mkdir(dir1)
-    await message.reply_text("Successfully cleaned all **temp** dir(s)!")
+    await message.reply_text("Tümü başarıyla temizlendi **temp** dir(s)!")
