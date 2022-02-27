@@ -105,37 +105,37 @@ async def initiate_bot():
     )
     console.print(header)
     with console.status(
-        "[magenta] Yukki Music Bot Booting...",
+        "[magenta] Talia Winamp Müzik Botu Önyükleme...",
     ) as status:
-        console.print("┌ [red]Booting Up The Clients...\n")
+        console.print("┌ [red]İstemcileri önyükleme...\n")
         await app.start()
-        console.print("└ [green]Booted Bot Client")
-        console.print("\n┌ [red]Booting Up The Assistant Clients...")
+        console.print("└ [green]Önyüklenen Bot İstemcisi")
+        console.print("\n┌ [red]Yardımcı istemcileri önyükleme...")
         if STRING1 != "None":
             await ASS_CLI_1.start()
             random_assistant.append(1)
-            console.print("├ [yellow]Booted Assistant Client")
+            console.print("├ [yellow]Önyüklenen Yardımcı İstemci")
         if STRING2 != "None":
             await ASS_CLI_2.start()
             random_assistant.append(2)
-            console.print("├ [yellow]Booted Assistant Client 2")
+            console.print("├ [yellow]Önyüklenen Yardımcı İstemci 2")
         if STRING3 != "None":
             await ASS_CLI_3.start()
             random_assistant.append(3)
-            console.print("├ [yellow]Booted Assistant Client 3")
+            console.print("├ [yellow]Önyüklenen Yardımcı İstemci 3")
         if STRING4 != "None":
             await ASS_CLI_4.start()
             random_assistant.append(4)
-            console.print("├ [yellow]Booted Assistant Client 4")
+            console.print("├ [yellow]Önyüklenen Yardımcı İstemci 4")
         if STRING5 != "None":
             await ASS_CLI_5.start()
             random_assistant.append(5)
-            console.print("├ [yellow]Booted Assistant Client 5")
-        console.print("└ [green]Assistant Clients Booted Successfully!")
+            console.print("├ [yellow]Önyüklenen Yardımcı İstemci 5")
+        console.print("└ [green]Yardımcı İstemciler Başarıyla Önyüklendi!")
         if LOG_SESSION != "None":
-            console.print("\n┌ [red]Booting Logger Client")
+            console.print("\n┌ [red]Günlükçü İstemcisi Önyükleniyor")
             await LOG_CLIENT.start()
-            console.print("└ [green]Logger Client Booted Successfully!")
+            console.print("└ [green]Günlükçü İstemci Başarıyla Önyüklendi!")
         if "raw_files" not in listdir():
             mkdir("raw_files")
         if "downloads" not in listdir():
@@ -144,7 +144,7 @@ async def initiate_bot():
             mkdir("cache")
         if "search" not in listdir():
             mkdir("search")
-        console.print("\n┌ [red]Loading Clients Information...")
+        console.print("\n┌ [red]İstemci Bilgileri Yükleniyor...")
         getme = await app.get_me()
         BOT_ID = getme.id
         if getme.last_name:
@@ -221,15 +221,15 @@ async def initiate_bot():
                     upsert=True,
                 )
         SUDOERS = (SUDOERS + sudoers + OWNER_ID) if sudoers else SUDOERS
-        console.print("└ [green]Loaded Sudo Users Successfully!\n")
+        console.print("└ [green]Sudo Kullanıcıları Başarıyla Yüklendi!\n")
         try:
             repo = Repo()
         except GitCommandError:
-            console.print("┌ [red] Checking Git Updates!")
-            console.print("└ [red]Git Command Error\n")
+            console.print("┌ [red] Git Güncelleştirmelerini Denetleme!")
+            console.print("└ [red]Git Komutu Hatası\n")
             return
         except InvalidGitRepositoryError:
-            console.print("┌ [red] Checking Git Updates!")
+            console.print("┌ [red] Git Güncelleştirmelerini Denetleme!")
             repo = Repo.init()
             if "origin" in repo.remotes:
                 origin = repo.remote("origin")
@@ -254,7 +254,7 @@ async def initiate_bot():
             await install_requirements(
                 "pip3 install --no-cache-dir -r requirements.txt"
             )
-            console.print("└ [red]Git Client Update Completed\n")
+            console.print("└ [red]Git İstemciSi Güncelleştirmesi Tamamlandı\n")
 
 
 loop.run_until_complete(initiate_bot())
