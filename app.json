@@ -28,6 +28,10 @@
       "value": "",
       "required": true
     },
+    "BOT_USERNAME": {
+      "description": "Botunuzun kullanıcı adı @",
+      "required": true
+    },
     "DURATION_LIMIT": {
       "description": "Duration Limit for Playout (In Mins).. Example: 60",
       "value": "60",
