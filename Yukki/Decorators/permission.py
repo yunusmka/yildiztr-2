@@ -29,7 +29,7 @@ def PermissionCheck(mystic):
             return
         if not a.can_invite_users:
             await message.reply_text(
-                "I don't have the required permission to perform this action."
+                "Bu eylemi gerçekleştirmek için gerekli iznim yok."
                 + "\n**İzin:** __KULLANICILARI BAĞLANTIYLA DAVET ETME__"
             )
             return
