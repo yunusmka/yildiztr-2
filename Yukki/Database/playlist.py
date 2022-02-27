@@ -13,21 +13,21 @@ playlistdb_others = db.playlistothers
 
 
 async def _get_playlists(chat_id: int, type: str) -> Dict[str, int]:
-    if type == "Lofi":
+    if type == "Yabancı":
         xd = playlistdb_lofi
-    elif type == "Weeb":
+    elif type == "Pop":
         xd = playlistdb_rock
-    elif type == "Sad":
+    elif type == "Dini":
         xd = playlistdb_sad
-    elif type == "Party":
+    elif type == "Remix":
         xd = playlistdb_party
-    elif type == "Bollywood":
+    elif type == "Arabesk":
         xd = playlistdb_bollywood
-    elif type == "Hollywood":
+    elif type == "Kürtçe":
         xd = playlistdb_hollywood
-    elif type == "Punjabi":
+    elif type == "Nostaji":
         xd = playlistdb_punjabi
-    elif type == "Others":
+    elif type == "Karışık":
         xd = playlistdb_others
     _notes = await xd.find_one({"chat_id": chat_id})
     if not _notes:
@@ -57,21 +57,21 @@ async def save_playlist(chat_id: int, name: str, note: dict, type: str):
     name = name
     _notes = await _get_playlists(chat_id, type)
     _notes[name] = note
-    if type == "Lofi":
+    if type == "Yabancı":
         xd = playlistdb_lofi
-    elif type == "Weeb":
+    elif type == "Pop":
         xd = playlistdb_rock
-    elif type == "Sad":
+    elif type == "Dini":
         xd = playlistdb_sad
-    elif type == "Party":
+    elif type == "Remix":
         xd = playlistdb_party
-    elif type == "Bollywood":
+    elif type == "Arabesk":
         xd = playlistdb_bollywood
-    elif type == "Hollywood":
+    elif type == "Kürtçe":
         xd = playlistdb_hollywood
-    elif type == "Punjabi":
+    elif type == "Nostaji":
         xd = playlistdb_punjabi
-    elif type == "Others":
+    elif type == "Karışık":
         xd = playlistdb_others
     await xd.update_one(
         {"chat_id": chat_id}, {"$set": {"notes": _notes}}, upsert=True
@@ -81,21 +81,21 @@ async def save_playlist(chat_id: int, name: str, note: dict, type: str):
 async def delete_playlist(chat_id: int, name: str, type: str) -> bool:
     notesd = await _get_playlists(chat_id, type)
     name = name
-    if type == "Lofi":
+    if type == "Yabancı":
         xd = playlistdb_lofi
-    elif type == "Weeb":
+    elif type == "Pop":
         xd = playlistdb_rock
-    elif type == "Sad":
+    elif type == "Dini":
         xd = playlistdb_sad
-    elif type == "Party":
+    elif type == "Remix":
         xd = playlistdb_party
-    elif type == "Bollywood":
+    elif type == "Arabesk":
         xd = playlistdb_bollywood
-    elif type == "Hollywood":
+    elif type == "Kürtçe":
         xd = playlistdb_hollywood
-    elif type == "Punjabi":
+    elif type == "Nostaji":
         xd = playlistdb_punjabi
-    elif type == "Others":
+    elif type == "Karışık":
         xd = playlistdb_others
     if name in notesd:
         del notesd[name]
