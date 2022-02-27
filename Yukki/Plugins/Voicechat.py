@@ -27,7 +27,7 @@ async def gback_list_chose_stream(_, CallbackQuery):
     videoid, duration, user_id = callback_request.split("|")
     if CallbackQuery.from_user.id != int(user_id):
         return await CallbackQuery.answer(
-            "This is not for you! Search You Own Song.", show_alert=True
+            "Bu senin için değil! Kendi Şarkınızı Arayın.", show_alert=True
         )
     buttons = choose_markup(videoid, duration, user_id)
     await CallbackQuery.edit_message_reply_markup(
@@ -61,13 +61,13 @@ async def timer_checkup_markup(_, CallbackQuery):
             dur_left = db_mem[CallbackQuery.message.chat.id]["left"]
             duration_min = db_mem[CallbackQuery.message.chat.id]["total"]
             return await CallbackQuery.answer(
-                f"Remaining {dur_left} out of {duration_min} Mins.",
+                f"Kalan {dur_left} dışında {duration_min} Dakika.",
                 show_alert=True,
             )
-        return await CallbackQuery.answer(f"Not Playing.", show_alert=True)
+        return await CallbackQuery.answer(f"Yürütemiyor.", show_alert=True)
     else:
         return await CallbackQuery.answer(
-            f"No Active Voice Chat", show_alert=True
+            f"Etkin Sesli Sohbet Yok", show_alert=True
         )
 
 
@@ -75,12 +75,12 @@ async def timer_checkup_markup(_, CallbackQuery):
 async def activevc(_, message: Message):
     global get_queue
     if await is_active_chat(message.chat.id):
-        mystic = await message.reply_text("Please Wait... Getting Queue..")
+        mystic = await message.reply_text("Lütfen bekleyin... Sıraya alınıyor..")
         dur_left = db_mem[message.chat.id]["left"]
         duration_min = db_mem[message.chat.id]["total"]
         got_queue = get_queue.get(message.chat.id)
         if not got_queue:
-            await mystic.edit(f"Nothing in Queue")
+            await mystic.edit(f"Çalma sırasında Hiçbir Şey Yok")
         fetched = []
         for get in got_queue:
             fetched.append(get)
@@ -89,22 +89,22 @@ async def activevc(_, message: Message):
         current_playing = fetched[0][0]
         user_name = fetched[0][1]
 
-        msg = "**Queued List**\n\n"
-        msg += "**Currently Playing:**"
+        msg = "**Kuyruğa Atılmış Liste**\n\n"
+        msg += "**Şu Anda Yürüten:**"
         msg += "\n▶️" + current_playing[:30]
-        msg += f"\n   ╚By:- {user_name}"
-        msg += f"\n   ╚Duration:- Remaining `{dur_left}` out of `{duration_min}` Mins."
+        msg += f"\n   ╚Tarafından:- {user_name}"
+        msg += f"\n   ╚Süre:- Remaining `{dur_left}` out of `{duration_min}` Dakika."
         fetched.pop(0)
         if fetched:
             msg += "\n\n"
-            msg += "**Up Next In Queue:**"
+            msg += "**Sıradaki Yukarı:**"
             for song in fetched:
                 name = song[0][:30]
                 usr = song[1]
                 dur = song[2]
                 msg += f"\n⏸️{name}"
-                msg += f"\n   ╠Duration : {dur}"
-                msg += f"\n   ╚Requested by : {usr}\n"
+                msg += f"\n   ╠Süre : {dur}"
+                msg += f"\n   ╚İstenen : {usr}\n"
         if len(msg) > 4096:
             await mystic.delete()
             filename = "queue.txt"
@@ -112,7 +112,7 @@ async def activevc(_, message: Message):
                 out_file.write(str(msg.strip()))
             await message.reply_document(
                 document=filename,
-                caption=f"**OUTPUT:**\n\n`Queued List`",
+                caption=f"**OUTPUT:**\n\n`Kuyruğa Atılmış Liste`",
                 quote=False,
             )
             os.remove(filename)
@@ -130,7 +130,7 @@ async def activevc(_, message: Message):
         for chat in chats:
             served_chats.append(int(chat["chat_id"]))
     except Exception as e:
-        await message.reply_text(f"**Error:-** {e}")
+        await message.reply_text(f"**Hata:-** {e}")
     text = ""
     j = 0
     for x in served_chats:
@@ -147,10 +147,10 @@ async def activevc(_, message: Message):
             text += f"<b>{j + 1}. {title}</b> [`{x}`]\n"
         j += 1
     if not text:
-        await message.reply_text("No Active Voice Chats")
+        await message.reply_text("Etkin Sesli Sohbet Yok")
     else:
         await message.reply_text(
-            f"**Active Voice Chats:-**\n\n{text}",
+            f"**Etkin Sesli Sohbetler:-**\n\n{text}",
             disable_web_page_preview=True,
         )
 
@@ -163,7 +163,7 @@ async def activevi_(_, message: Message):
         for chat in chats:
             served_chats.append(int(chat["chat_id"]))
     except Exception as e:
-        await message.reply_text(f"**Error:-** {e}")
+        await message.reply_text(f"**Hata:-** {e}")
     text = ""
     j = 0
     for x in served_chats:
@@ -180,10 +180,10 @@ async def activevi_(_, message: Message):
             text += f"<b>{j + 1}. {title}</b> [`{x}`]\n"
         j += 1
     if not text:
-        await message.reply_text("No Active Voice Chats")
+        await message.reply_text("Etkin Sesli Sohbet Yok")
     else:
         await message.reply_text(
-            f"**Active Video Calls:-**\n\n{text}",
+            f"**Etkin Görüntülü Aramalar:-**\n\n{text}",
             disable_web_page_preview=True,
         )
 
@@ -192,7 +192,7 @@ async def activevi_(_, message: Message):
 async def basffy(_, message):
     if len(message.command) != 2:
         await message.reply_text(
-            "**Usage:**\n/joinassistant [Chat Username or Chat ID]"
+            "**Kullanım:**\n/joinassistant [Sohbet Kullanıcı Adı veya Sohbet Kimliği]"
         )
         return
     chat = message.text.split(None, 2)[1]
@@ -200,12 +200,12 @@ async def basffy(_, message):
         chat_id = (await app.get_chat(chat)).id
     except:
         return await message.reply_text(
-            "Add Bot to this Chat First.. Unknown Chat for the bot"
+            "Önce bu Sohbete Bot ekleyin.. Bot için Bilinmeyen Sohbet"
         )
     _assistant = await get_assistant(chat_id, "assistant")
     if not _assistant:
         return await message.reply_text(
-            "No Pre-Saved Assistant Found.\n\nYou can set Assistant Via /play inside {Chat}'s Group"
+            "Önceden Kaydedilmiş Yardımcı Bulunamadı.\n\nAsistan'ı /oynat içinde {Chat}'nin Grubu"
         )
     else:
         ran_ass = _assistant["saveassistant"]
@@ -215,7 +215,7 @@ async def basffy(_, message):
     try:
         await ASS_ACC.join_chat(chat_id)
     except Exception as e:
-        await message.reply_text(f"Failed\n**Possible reason could be**:{e}")
+        await message.reply_text(f"Başarısız\n**Olası neden**:{e}")
         return
     await message.reply_text("Joined.")
 
@@ -224,24 +224,24 @@ async def basffy(_, message):
 async def baaaf(_, message):
     if len(message.command) != 2:
         await message.reply_text(
-            "**Usage:**\n/leavebot [Chat Username or Chat ID]"
+            "**Kullanım:**\n/leavebot [Sohbet Kullanıcı Adı veya Sohbet Kimliği]"
         )
         return
     chat = message.text.split(None, 2)[1]
     try:
         await app.leave_chat(chat)
     except Exception as e:
-        await message.reply_text(f"Failed\n**Possible reason could be**:{e}")
+        await message.reply_text(f"Başarısız\n**Olası neden**:{e}")
         print(e)
         return
-    await message.reply_text("Bot has left the chat successfully")
+    await message.reply_text("Bot sohbeti başarıyla bıraktı")
 
 
 @app.on_message(filters.command("leaveassistant") & filters.user(SUDOERS))
 async def baujaf(_, message):
     if len(message.command) != 2:
         await message.reply_text(
-            "**Usage:**\n/leave [Chat Username or Chat ID]"
+            "**Kullanım:**\n/leave [Sohbet Kullanıcı Adı veya Sohbet Kimliği]"
         )
         return
     chat = message.text.split(None, 2)[1]
@@ -249,12 +249,12 @@ async def baujaf(_, message):
         chat_id = (await app.get_chat(chat)).id
     except:
         return await message.reply_text(
-            "Add Bot to this Chat First.. Unknown Chat for the bot"
+            "Önce bu Sohbete Bot ekleyin.. Bot için Bilinmeyen Sohbet"
         )
     _assistant = await get_assistant(chat, "assistant")
     if not _assistant:
         return await message.reply_text(
-            "No Pre-Saved Assistant Found.\n\nYou can set Assistant Via /play inside {Chat}'s Group"
+            "Önceden Kaydedilmiş Yardımcı Bulunamadı.\n\nAsistan'ı /oynat içinde {Chat}'nin Grubu"
         )
     else:
         ran_ass = _assistant["saveassistant"]
@@ -264,6 +264,6 @@ async def baujaf(_, message):
     try:
         await ASS_ACC.leave_chat(chat_id)
     except Exception as e:
-        await message.reply_text(f"Failed\n**Possible reason could be**:{e}")
+        await message.reply_text(f"Başarısız\n**Olası neden**:{e}")
         return
     await message.reply_text("Left.")
