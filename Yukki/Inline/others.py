@@ -17,17 +17,17 @@ def others_markup(videoid, user_id):
         ],
         [
             InlineKeyboardButton(
-                text="✚ Çalma Listesi",
+                text="✚ Kişi Özel Liste",
                 callback_data=f"your_playlist {videoid}|{user_id}",
             ),
             InlineKeyboardButton(
-                text="✚ Grup Çalma Listesi",
+                text="✚ Grubun Mp3 Listesi",
                 callback_data=f"group_playlist {videoid}|{user_id}",
             ),
         ],
         [
             InlineKeyboardButton(
-                text="⬇️ Ses/Video İndir",
+                text="⬇️ Mp3<💢>Video İndir",
                 callback_data=f"audio_video_download {videoid}|{user_id}",
             )
         ],
@@ -37,7 +37,7 @@ def others_markup(videoid, user_id):
                 callback_data=f"pr_go_back_timer {videoid}|{user_id}",
             ),
             InlineKeyboardButton(
-                text="🗑 Menüyü Kapat",
+                text="👉 Menüyü Kapat",
                 callback_data=f"close",
             ),
         ],
@@ -49,11 +49,11 @@ def download_markup(videoid, user_id):
     buttons = [
         [
             InlineKeyboardButton(
-                text="⬇️ Ses Al",
+                text="⬇️ Mp3 İndir",
                 callback_data=f"gets audio|{videoid}|{user_id}",
             ),
             InlineKeyboardButton(
-                text="⬇️ Video Al",
+                text="⬇️ Video İndir",
                 callback_data=f"gets video|{videoid}|{user_id}",
             ),
         ],
@@ -61,7 +61,7 @@ def download_markup(videoid, user_id):
             InlineKeyboardButton(
                 text="⬅️ Geri Git", callback_data=f"goback {videoid}|{user_id}"
             ),
-            InlineKeyboardButton(text="🗑 Menüyü Kapat", callback_data=f"close"),
+            InlineKeyboardButton(text="👉 Menüyü Kapat", callback_data=f"close"),
         ],
     ]
     return buttons
