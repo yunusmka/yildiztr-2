@@ -40,7 +40,7 @@ async def welcome(_, message: Message):
             if member.id == BOT_ID:
                 if chat_id in await blacklisted_chats():
                     await message.reply_text(
-                        f"Hushh, Your chat group[{message.chat.title}] has been blacklisted!\n\nAsk any Sudo User to whitelist your chat"
+                        f"Baksen, Sohbet grubunuz [{message.chat.title}] kara listeye alındı!\n\nHerhangi bir Sudo Kullanıcısı'nın sohbetinizi beyaz listeye almasını isteyin"
                     )
                     return await app.leave_chat(chat_id)
                 _assistant = await get_assistant(message.chat.id, "assistant")
@@ -60,18 +60,18 @@ async def welcome(_, message: Message):
                 ) = await get_assistant_details(ran_ass)
                 out = start_pannel()
                 await message.reply_text(
-                    f"Welcome To {MUSIC_BOT_NAME}\n\nPromote me as administrator in your group otherwise I will not function properly.\n\nAssistant Username:- @{ASS_USERNAME}\nAssistant ID:- {ASS_ID}",
+                    f"HoşGeldiniz {MUSIC_BOT_NAME}\n\nBeni grubunuzda yönetici olarak tanıtın, aksi takdirde düzgün çalışmam.\n\nAsistan Kullanıcı adı:- @{ASS_USERNAME}\nYardımcı Kimliği:- {ASS_ID}",
                     reply_markup=InlineKeyboardMarkup(out[1]),
                 )
             if member.id in ASSIDS:
                 return await remove_active_chat(chat_id)
             if member.id in OWNER_ID:
                 return await message.reply_text(
-                    f"{MUSIC_BOT_NAME}'s Owner[{member.mention}] has just joined your chat."
+                    f"{MUSIC_BOT_NAME}'un Sahibi[{member.mention}] Sohbetinize yeni katıldı."
                 )
             if member.id in SUDOERS:
                 return await message.reply_text(
-                    f"A member of {MUSIC_BOT_NAME}'s Sudo User[{member.mention}] has just joined your chat."
+                    f"Bir üyesi {MUSIC_BOT_NAME}'un Sudo Kullanıcısı[{member.mention}] Sohbetinize yeni katıldı."
                 )
             return
         except:
@@ -85,7 +85,7 @@ async def useradd(_, message: Message):
     await asyncio.gather(
         message.delete(),
         message.reply_text(
-            f"Thanks for having me in {message.chat.title}.\n{MUSIC_BOT_NAME} is alive.\n\nFor any assistance or help, checkout our support group and channel.",
+            f"Beni de içine alarak teşekkürler. {message.chat.title}.\n{MUSIC_BOT_NAME} yaşıyor.\n\nHerhangi bir yardım veya yardım için destek grubumuza ve kanalımıza göz atın.",
             reply_markup=InlineKeyboardMarkup(out[1]),
         ),
     )
@@ -108,7 +108,7 @@ async def settings(_, message: Message):
     await asyncio.gather(
         message.delete(),
         message.reply_text(
-            f"{text}\n\n**Group:** {message.chat.title}\n**Group ID:** {message.chat.id}\n**Volume Level:** {volume}%",
+            f"{text}\n\n**Group:** {message.chat.title}\n**Grup Kimliği:** {message.chat.id}\n**Ses Düzeyi:** {volume}%",
             reply_markup=InlineKeyboardMarkup(buttons),
         ),
     )
@@ -116,17 +116,17 @@ async def settings(_, message: Message):
 
 @app.on_callback_query(filters.regex("okaybhai"))
 async def okaybhai(_, CallbackQuery):
-    await CallbackQuery.answer("Going Back ...")
+    await CallbackQuery.answer("Geri Dönüyoruz...")
     out = start_pannel()
     await CallbackQuery.edit_message_text(
-        text=f"Thanks for having me in {CallbackQuery.message.chat.title}.\n{MUSIC_BOT_NAME}is alive.\n\nFor any assistance or help, checkout our support group and channel.",
+        text=f"Beni de içine alarak teşekkürler. {CallbackQuery.message.chat.title}.\n{MUSIC_BOT_NAME} yaşıyor.\n\nHerhangi bir yardım veya yardım için destek grubumuza ve kanalımıza göz atın.",
         reply_markup=InlineKeyboardMarkup(out[1]),
     )
 
 
 @app.on_callback_query(filters.regex("settingm"))
 async def settingm(_, CallbackQuery):
-    await CallbackQuery.answer("Bot Settings ...")
+    await CallbackQuery.answer("Bot Ayarları...")
     text, buttons = setting_markup()
     c_title = CallbackQuery.message.chat.title
     c_id = CallbackQuery.message.chat.id
@@ -141,7 +141,7 @@ async def settingm(_, CallbackQuery):
     else:
         volume = _check["volume"]
     await CallbackQuery.edit_message_text(
-        text=f"{text}\n\n**Group:** {c_title}\n**Group ID:** {c_id}\n**Volume Level:** {volume}%",
+        text=f"{text}\n\n**Group:** {c_title}\n**Grup Kimliği:** {c_id}\n**Ses Düzeyi:** {volume}%",
         reply_markup=InlineKeyboardMarkup(buttons),
     )
 
@@ -157,12 +157,12 @@ async def EVE(_, CallbackQuery):
         await CallbackQuery.answer("Changes Saved")
         await add_nonadmin_chat(chat_id)
         await CallbackQuery.edit_message_text(
-            text=f"{text}\n\nAdmins Commands Mode to **Everyone**\n\nNow anyone present in this group can skip, pause, resume, stop music.\n\nChanges Done By @{checking}",
+            text=f"{text}\n\nYönetici Komutları Modu için **Herkes**\n\nŞimdi bu grupta bulunan herkes atla, durdur, devam, son.\n\nYapılan Değişiklikler @{checking}",
             reply_markup=InlineKeyboardMarkup(buttons),
         )
     else:
         await CallbackQuery.answer(
-            "Commands Mode is Already Set To EVERYONE", show_alert=True
+            "Komut modu zaten HERKESE Ayarlandı", show_alert=True
         )
 
 
@@ -175,13 +175,13 @@ async def AMS(_, CallbackQuery):
     is_non_admin = await is_nonadmin_chat(chat_id)
     if not is_non_admin:
         await CallbackQuery.answer(
-            "Commands Mode is Already Set To ADMINS ONLY", show_alert=True
+            "Komutlar Modu Zaten YALNIZCA YÖNETİCİ Olarak Ayarlanmış", show_alert=True
         )
     else:
         await CallbackQuery.answer("Changes Saved")
         await remove_nonadmin_chat(chat_id)
         await CallbackQuery.edit_message_text(
-            text=f"{text}\n\nSet Commands Mode to **Admins**\n\nNow only Admins present in this group can skip, pause, resume, stop musics.\n\nChanges Done By @{checking}",
+            text=f"{text}\n\nKomut Modu Ayarlamak **Yöneticiler**\n\nArtık yalnızca bu grupta bulunan Yöneticiler atla, durdur, devam, son.\n\nYapılan Değişiklikler @{checking}",
             reply_markup=InlineKeyboardMarkup(buttons),
         )
 
@@ -197,18 +197,18 @@ async def start_markup_check(_, CallbackQuery):
     c_id = CallbackQuery.message.chat.id
     chat_id = CallbackQuery.message.chat.id
     if command == "AQ":
-        await CallbackQuery.answer("Already in Best Quality", show_alert=True)
+        await CallbackQuery.answer("Zaten En İyi Kalitede", show_alert=True)
     if command == "AV":
-        await CallbackQuery.answer("Bot Settings ...")
+        await CallbackQuery.answer("Bot Ayarları...")
         text, buttons = volmarkup()
         _check = await get_start(c_id, "assistant")
         volume = _check["volume"]
         await CallbackQuery.edit_message_text(
-            text=f"{text}\n\n**Group:** {c_title}\n**Group ID:** {c_id}\n**Volume Level:** {volume}%\n**Audio Quality:** Default Best",
+            text=f"{text}\n\n**Group:** {c_title}\n**Grup Kimliği:** {c_id}\n**Ses Düzeyi:** {volume}%\n**Ses Kalitesi:** Varsayılan En İyi",
             reply_markup=InlineKeyboardMarkup(buttons),
         )
     if command == "AU":
-        await CallbackQuery.answer("Bot Settings ...")
+        await CallbackQuery.answer("Bot Ayarları...")
         text, buttons = usermarkup()
         is_non_admin = await is_nonadmin_chat(chat_id)
         if not is_non_admin:
@@ -216,25 +216,25 @@ async def start_markup_check(_, CallbackQuery):
         else:
             current = "Everyone"
         await CallbackQuery.edit_message_text(
-            text=f"{text}\n\n**Group:** {c_title}\n\nCurrently Who Can Use {MUSIC_BOT_NAME}:- **{current}**\n\n**⁉️ What is This?**\n\n**👥 Everyone :-**Anyone can use {MUSIC_BOT_NAME}'s commands(skip, pause, resume etc) present in this group.\n\n**🙍 Admin Only :-**  Only the admins and authorized users can use all commands of {MUSIC_BOT_NAME}.",
+            text=f"{text}\n\n**Group:** {c_title}\n\nŞu Anda Kimler Kullanabilir? {MUSIC_BOT_NAME}:- **{current}**\n\n**⁉️ Bu nedir?**\n\n**👥 Herkes :-**Herkes kullanabilir {MUSIC_BOT_NAME}'un Komutları (atla, durdur, devam etc) bu grupta mevcut.\n\n**🙍 Yalnızca Yönetici :-**  Yalnızca yöneticiler ve yetkili kullanıcılar {MUSIC_BOT_NAME}.",
             reply_markup=InlineKeyboardMarkup(buttons),
         )
     if command == "Dashboard":
-        await CallbackQuery.answer("Dashboard...")
+        await CallbackQuery.answer("Tablo...")
         text, buttons = dashmarkup()
         _check = await get_start(c_id, "assistant")
         volume = _check["volume"]
         await CallbackQuery.edit_message_text(
-            text=f"{text}\n\n**Group:** {c_title}\n**Group ID:** {c_id}\n**Volume Level:** {volume}%\n\nCheck {MUSIC_BOT_NAME}'s System Stats In the DashBoard Here! More Functions adding very soon! Keep on Checking Support Channel.",
+            text=f"{text}\n\n**Group:** {c_title}\n**Grup Kimliği:** {c_id}\n**Ses Düzeyi:** {volume}%\n\nÇek {MUSIC_BOT_NAME}'s DashBoard'daki Sistem İstatistikleri Burada! Çok yakında ekleyen daha fazla işlev! Destek Kanallarını Denetlemeye Devam Et.",
             reply_markup=InlineKeyboardMarkup(buttons),
         )
     if command == "Custommarkup":
-        await CallbackQuery.answer("Bot Settings ...")
+        await CallbackQuery.answer("Bot Ayarları...")
         text, buttons = custommarkup()
         _check = await get_start(c_id, "assistant")
         volume = _check["volume"]
         await CallbackQuery.edit_message_text(
-            text=f"{text}\n\n**Group:** {c_title}\n**Group ID:** {c_id}\n**Volume Level:** {volume}%\n**Audio Quality:** Default Best",
+            text=f"{text}\n\n**Group:** {c_title}\n**Grup Kimliği:** {c_id}\n**Ses Düzeyi:** {volume}%\n**Ses Kalitesi:** Varsayılan En İyi",
             reply_markup=InlineKeyboardMarkup(buttons),
         )
     if command == "LV":
@@ -244,13 +244,13 @@ async def start_markup_check(_, CallbackQuery):
         volume = 25
         try:
             await Yukki.pytgcalls.change_volume_call(c_id, volume)
-            await CallbackQuery.answer("Setting Audio Changes ...")
+            await CallbackQuery.answer("Ses Değişikliklerini Ayarlama ...")
         except:
-            return await CallbackQuery.answer("No active Group Call...")
+            return await CallbackQuery.answer("Etkin Grup Çağrısı Yok...")
         await save_start(c_id, "assistant", assis)
         text, buttons = volmarkup()
         await CallbackQuery.edit_message_text(
-            text=f"{text}\n\n**Group:** {c_title}\n**Group ID:** {c_id}\n**Volume Level:** {volume}%\n**Audio Quality:** Default Best",
+            text=f"{text}\n\n**Group:** {c_title}\n**Grup Kimliği:** {c_id}\n**Ses Düzeyi:** {volume}%\n**Ses Kalitesi:** Varsayılan En İyi",
             reply_markup=InlineKeyboardMarkup(buttons),
         )
     if command == "MV":
@@ -260,13 +260,13 @@ async def start_markup_check(_, CallbackQuery):
         volume = 50
         try:
             await Yukki.pytgcalls.change_volume_call(c_id, volume)
-            await CallbackQuery.answer("Setting Audio Changes ...")
+            await CallbackQuery.answer("Ses Değişikliklerini Ayarlama ...")
         except:
-            return await CallbackQuery.answer("No active Group Call...")
+            return await CallbackQuery.answer("Etkin Grup Çağrısı Yok...")
         await save_start(c_id, "assistant", assis)
         text, buttons = volmarkup()
         await CallbackQuery.edit_message_text(
-            text=f"{text}\n\n**Group:** {c_title}\n**Group ID:** {c_id}\n**Volume Level:** {volume}%\n**Audio Quality:** Default Best",
+            text=f"{text}\n\n**Group:** {c_title}\n**Grup Kimliği:** {c_id}\n**Ses Düzeyi:** {volume}%\n**Ses Kalitesi:** Varsayılan En İyi",
             reply_markup=InlineKeyboardMarkup(buttons),
         )
     if command == "HV":
@@ -276,9 +276,9 @@ async def start_markup_check(_, CallbackQuery):
         volume = 100
         try:
             await Yukki.pytgcalls.change_volume_call(c_id, volume)
-            await CallbackQuery.answer("Setting Audio Changes ...")
+            await CallbackQuery.answer("Ses Değişikliklerini Ayarlama ...")
         except:
-            return await CallbackQuery.answer("No active Group Call...")
+            return await CallbackQuery.answer("Etkin Grup Çağrısı Yok...")
         await save_start(c_id, "assistant", assis)
         text, buttons = volmarkup()
         await CallbackQuery.edit_message_text(
@@ -358,13 +358,13 @@ async def start_markup_check(_, CallbackQuery):
         }
         try:
             await Yukki.pytgcalls.change_volume_call(c_id, volume)
-            await CallbackQuery.answer("Setting Audio Changes ...")
+            await CallbackQuery.answer("Ses Değişikliklerini Ayarlama ...")
         except:
-            return await CallbackQuery.answer("No active Group Call...")
+            return await CallbackQuery.answer("Etkin Grup Çağrısı Yok...")
         await save_start(c_id, "assistant", assis)
         text, buttons = custommarkup()
         await CallbackQuery.edit_message_text(
-            text=f"{text}\n\n**Group:** {c_title}\n**Group ID:** {c_id}\n**Volume Level:** {volume}%\n**Audio Quality:** Default Best",
+            text=f"{text}\n\n**Group:** {c_title}\n**Grup Kimliği:** {c_id}\n**Ses Düzeyi:** {volume}%\n**Ses Kalitesi:** Varsayılan En İyi",
             reply_markup=InlineKeyboardMarkup(buttons),
         )
     if command == "MTF":
@@ -386,7 +386,7 @@ async def start_markup_check(_, CallbackQuery):
         await save_start(c_id, "assistant", assis)
         text, buttons = custommarkup()
         await CallbackQuery.edit_message_text(
-            text=f"{text}\n\n**Group:** {c_title}\n**Group ID:** {c_id}\n**Volume Level:** {volume}%\n**Audio Quality:** Default Best",
+            text=f"{text}\n\n**Group:** {c_title}\n**Grup Kimliği:** {c_id}\n**Ses Düzeyi:** {volume}%\n**Ses Kalitesi:** Varsayılan En İyi",
             reply_markup=InlineKeyboardMarkup(buttons),
         )
     if command == "PFZ":
@@ -402,13 +402,13 @@ async def start_markup_check(_, CallbackQuery):
         }
         try:
             await Yukki.pytgcalls.change_volume_call(c_id, volume)
-            await CallbackQuery.answer("Setting Audio Changes ...")
+            await CallbackQuery.answer("Ses Değişikliklerini Ayarlama ...")
         except:
-            return await CallbackQuery.answer("No active Group Call...")
+            return await CallbackQuery.answer("Etkin Grup Çağrısı Yok...")
         await save_start(c_id, "assistant", assis)
         text, buttons = custommarkup()
         await CallbackQuery.edit_message_text(
-            text=f"{text}\n\n**Group:** {c_title}\n**Group ID:** {c_id}\n**Volume Level:** {volume}%\n**Audio Quality:** Default Best",
+            text=f"{text}\n\n**Group:** {c_title}\n**Grup Kimliği:** {c_id}\n**Ses Düzeyi:** {volume}%\n**Ses Kalitesi:** Varsayılan En İyi",
             reply_markup=InlineKeyboardMarkup(buttons),
         )
     if command == "MFZ":
@@ -424,30 +424,30 @@ async def start_markup_check(_, CallbackQuery):
         }
         try:
             await Yukki.pytgcalls.change_volume_call(c_id, volume)
-            await CallbackQuery.answer("Setting Audio Changes ...")
+            await CallbackQuery.answer("Ses Değişikliklerini Ayarlama ...")
         except:
-            return await CallbackQuery.answer("No active Group Call...")
+            return await CallbackQuery.answer("Etkin Grup Çağrısı Yok...")
         await save_start(c_id, "assistant", assis)
         text, buttons = custommarkup()
         await CallbackQuery.edit_message_text(
-            text=f"{text}\n\n**Group:** {c_title}\n**Group ID:** {c_id}\n**Volume Level:** {volume}%\n**Audio Quality:** Default Best",
+            text=f"{text}\n\n**Group:** {c_title}\n**Grup Kimliği:** {c_id}\n**Ses Düzeyi:** {volume}%\n**Ses Kalitesi:** Varsayılan En İyi",
             reply_markup=InlineKeyboardMarkup(buttons),
         )
     if command == "USERLIST":
-        await CallbackQuery.answer("Auth Users!")
+        await CallbackQuery.answer("Kimlik Doğrulama Kullanıcıları!")
         text, buttons = usermarkup()
         _playlist = await get_authuser_names(CallbackQuery.message.chat.id)
         if not _playlist:
             return await CallbackQuery.edit_message_text(
-                text=f"{text}\n\nNo Authorized Users Found\n\nYou can allow any non-admin to use my admin commands by /auth and delete by using /unauth",
+                text=f"{text}\n\nYetkili Kullanıcı Bulunamadı\n\nYönetici olmayan herhangi bir yöneticinin yönetici komutlarımı kullanmasına izin verebilirsiniz: /auth ve kullanarak silin /unauth",
                 reply_markup=InlineKeyboardMarkup(buttons),
             )
         else:
             j = 0
             await CallbackQuery.edit_message_text(
-                "Fetching Authorised Users... Please Wait"
+                "Yetkili Kullanıcılar Getirtiyor... Lütfen bekleyin"
             )
-            msg = f"**Authorised Users List[AUL]:**\n\n"
+            msg = f"**Yetkili Kullanıcılar Listesi[AUL]:**\n\n"
             for note in _playlist:
                 _note = await get_authuser(
                     CallbackQuery.message.chat.id, note
@@ -463,7 +463,7 @@ async def start_markup_check(_, CallbackQuery):
                 except Exception:
                     continue
                 msg += f"{j}➤ {user}[`{user_id}`]\n"
-                msg += f"    ┗ Added By:- {admin_name}[`{admin_id}`]\n\n"
+                msg += f"    ┗ Ekleyen:- {admin_name}[`{admin_id}`]\n\n"
             await CallbackQuery.edit_message_text(
                 msg, reply_markup=InlineKeyboardMarkup(buttons)
             )
@@ -471,20 +471,20 @@ async def start_markup_check(_, CallbackQuery):
         bot_uptimee = int(time.time() - bot_start_time)
         Uptimeee = f"{get_readable_time((bot_uptimee))}"
         await CallbackQuery.answer(
-            f"Bot's Uptime: {Uptimeee}", show_alert=True
+            f"Bot'un Çalışma Süresi: {Uptimeee}", show_alert=True
         )
     if command == "CPT":
         cpue = psutil.cpu_percent(interval=0.5)
         await CallbackQuery.answer(
-            f"Bot's Cpu Usage: {cpue}%", show_alert=True
+            f"Bot'un cpu kullanımı: {cpue}%", show_alert=True
         )
     if command == "RAT":
         meme = psutil.virtual_memory().percent
         await CallbackQuery.answer(
-            f"Bot's Memory Usage: {meme}%", show_alert=True
+            f"Bot'un Bellek Kullanımı: {meme}%", show_alert=True
         )
     if command == "DIT":
         diske = psutil.disk_usage("/").percent
         await CallbackQuery.answer(
-            f"Yukki Disk Usage: {diske}%", show_alert=True
+            f"Efsane Music Disk Kullanımı: {diske}%", show_alert=True
         )
