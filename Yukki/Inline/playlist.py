@@ -6,15 +6,15 @@ def check_markup(user_name, user_id, videoid):
     buttons = [
         [
             InlineKeyboardButton(
-                text=f"Grubun Çalma Listesi",
+                text=f"Group's Playlist",
                 callback_data=f"playlist_check {user_id}|Group|{videoid}",
             ),
             InlineKeyboardButton(
-                text=f"{user_name[:8]}'nin Çalma Listesi",
+                text=f"{user_name[:8]}'s Playlist",
                 callback_data=f"playlist_check {user_id}|Personal|{videoid}",
             ),
         ],
-        [InlineKeyboardButton(text="❌ Menüyü Kapat", callback_data="close")],
+        [InlineKeyboardButton(text="🗑 Close Menu", callback_data="close")],
     ]
     return buttons
 
