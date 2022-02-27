@@ -441,12 +441,12 @@ Tüm komutlar: /
                 pass
             else:
                 return await query.answer(
-                    "Bu Düğmeye yalnızca SUDO KULLANICILARI tarafından erişilebilir",
+                    "This Button can only be accessed by SUDO USERS",
                     show_alert=True,
                 )
         text = (
             "{} **{}**:\n".format(
-                "İşte yardım", HELPABLE[module].__MODULE__
+                "Here is the help for", HELPABLE[module].__MODULE__
             )
             + HELPABLE[module].__HELP__
         )
@@ -459,7 +459,7 @@ Tüm komutlar: /
                     InlineKeyboardButton(
                         text="🔄 Kapat", callback_data="close"
                     ),
-                ],(
+                ],
             ]
         )
 
