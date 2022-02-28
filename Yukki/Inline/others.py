@@ -17,17 +17,17 @@ def others_markup(videoid, user_id):
         ],
         [
             InlineKeyboardButton(
-                text="✚ Kişi Özel Liste",
+                text="✚ Mp3 Listesi",
                 callback_data=f"your_playlist {videoid}|{user_id}",
             ),
             InlineKeyboardButton(
-                text="✚ Grubun Mp3 Listesi",
+                text="✚ Grubun Listesi",
                 callback_data=f"group_playlist {videoid}|{user_id}",
             ),
         ],
         [
             InlineKeyboardButton(
-                text="⬇️ Mp3<💢>Video İndir",
+                text="⬇️ Mp3 <💢> Video",
                 callback_data=f"audio_video_download {videoid}|{user_id}",
             )
         ],
