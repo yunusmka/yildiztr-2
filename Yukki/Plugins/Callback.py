@@ -244,7 +244,7 @@ async def admin_risghts(_, CallbackQuery):
                         photo=thumb,
                         reply_markup=InlineKeyboardMarkup(buttons),
                         caption=(
-                            f"<b>__Atlatılan Görüntülü Sohbet__</b>\n\n🎥<b>__Video Oynatmaya Başladı:__ </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n👨‍✈️**__Talep eden:__** {mention}"
+                            f"<b>__Atlatılan Görüntülü Sohbet__</b>\n\n🎥<b>__Video Oynatmaya Başladı:__ </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n☑️**__Talep eden:__** {mention}"
                         ),
                     )
                     os.remove(thumb)
@@ -302,7 +302,7 @@ async def admin_risghts(_, CallbackQuery):
                     photo=thumb,
                     reply_markup=InlineKeyboardMarkup(buttons),
                     caption=(
-                        f"<b>__Atlantılan Sesli Sohbet__</b>\n\n🎥<b>__Yürütterek Başladı:__ </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n⏳<b>__Süre:__</b> {duration_min} Mins\n👨‍✈️**__Talep eden:__** {mention}"
+                        f"<b>__Atlantılan Sesli Sohbet__</b>\n\n🎥<b>__Yürütterek Başladı:__ </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n⏳<b>__Süre:__</b> {duration_min} Mins\n☑️**__Talep eden:__** {mention}"
                     ),
                 )
                 os.remove(thumb)
@@ -446,7 +446,7 @@ async def play_playlist(_, CallbackQuery):
                 got_queue.append(to_append)
                 await music_on(chat_id)
                 await add_active_chat(chat_id)
-                cap = f"🎥<b>__Oynatılıyor:__ </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n🌀<b>__Bilgi:__</b> [Ek Bilgi Al](https://t.me/{BOT_USERNAME}?start=info_{videoid})\n👨‍✈️**__Talep eden:__** {CallbackQuery.from_user.mention}"
+                cap = f"🎥<b>__Oynatılıyor:__ </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n☑️**__Talep eden:__** {CallbackQuery.from_user.mention}"
                 final_output = await CallbackQuery.message.reply_photo(
                     photo=thumb,
                     reply_markup=InlineKeyboardMarkup(buttons),
