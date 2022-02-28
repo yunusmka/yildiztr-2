@@ -61,7 +61,7 @@ async def start_stream_video(message, file, title, mystic):
     else:
         if not await join_video_stream(message.chat.id, file, 720):
             return await mystic.edit(
-                "Error Joining Voice Chat. Make sure Voice Chat is Enabled."
+                "Sesli Sohbete Katılma Hatası. Sesli Sohbet'in Etkin olduğundan emin olun."
             )
         get_queue[message.chat.id] = []
         got_queue = get_queue.get(message.chat.id)
