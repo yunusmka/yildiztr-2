@@ -50,7 +50,7 @@ async def forceclose(_, CallbackQuery):
 
 
 @app.on_callback_query(
-    filters.regex(pattern=r"^(durdurcb|atlacb|soncb|devamcb)$")
+    filters.regex(pattern=r"^(pausecb|skipcb|stopcb|resumecb)$")
 )
 @AdminRightsCheckCB
 @checkerCB
@@ -62,7 +62,7 @@ async def admin_risghts(_, CallbackQuery):
             "Sesli sohbette hiçbir şey çalmıyor.", show_alert=True
         )
     chat_id = CallbackQuery.message.chat.id
-    if command == "durdurcb":
+    if command == "pausecb":
         if not await is_music_playing(chat_id):
             return await CallbackQuery.answer(
                 "Müzik zaten Duraklatıldı", show_alert=True
@@ -75,7 +75,7 @@ async def admin_risghts(_, CallbackQuery):
         )
         await CallbackQuery.message.delete()
         await CallbackQuery.answer("Duraklatıldı", show_alert=True)
-    if command == "devamcb":
+    if command == "resumecb":
         if await is_music_playing(chat_id):
             return await CallbackQuery.answer(
                 "Müzik zaten Devam Ediyor.", show_alert=True
@@ -88,7 +88,7 @@ async def admin_risghts(_, CallbackQuery):
         )
         await CallbackQuery.message.delete()
         await CallbackQuery.answer("Devam", show_alert=True)
-    if command == "soncb":
+    if command == "stopcb":
         if CallbackQuery.message.chat.id not in db_mem:
             db_mem[CallbackQuery.message.chat.id] = {}
         wtfbro = db_mem[CallbackQuery.message.chat.id]
@@ -106,7 +106,7 @@ async def admin_risghts(_, CallbackQuery):
         )
         await CallbackQuery.message.delete()
         await CallbackQuery.answer("Durdu", show_alert=True)
-    if command == "atlacb":
+    if command == "skipcb":
         if CallbackQuery.message.chat.id not in db_mem:
             db_mem[CallbackQuery.message.chat.id] = {}
         wtfbro = db_mem[CallbackQuery.message.chat.id]
@@ -116,7 +116,7 @@ async def admin_risghts(_, CallbackQuery):
             await remove_active_chat(chat_id)
             await remove_active_video_chat(chat_id)
             await CallbackQuery.message.reply_text(
-                f"Artık müzik yok...\n\nSesli Sohbet'ten ayrılıyor. Kullanılan Düğme :- {CallbackQuery.from_user.mention}"
+                f"Artık müzik yok __Sıra__ \n\nSesli Sohbet'ten ayrılıyor. Kullanılan Düğme :- {CallbackQuery.from_user.mention}"
             )
             await stop_stream(chat_id)
             await CallbackQuery.message.delete()
@@ -151,7 +151,7 @@ async def admin_risghts(_, CallbackQuery):
                     thumb = "Utils/Telegram.JPEG"
                     aud = 1
                 else:
-                    _path_ = _path_ = (
+                    _path_ = _path_ = ( 
                         (str(afk))
                         .replace("_", "", 1)
                         .replace("/", "", 1)
