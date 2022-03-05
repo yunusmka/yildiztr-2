@@ -116,7 +116,7 @@ async def admin_risghts(_, CallbackQuery):
             await remove_active_chat(chat_id)
             await remove_active_video_chat(chat_id)
             await CallbackQuery.message.reply_text(
-                f"Artık müzik yok __Sıra__ \n\nSesli Sohbet'ten ayrılıyor. Kullanılan Düğme :- {CallbackQuery.from_user.mention}"
+                f"Artık müzik yok....\n\nSesli Sohbet'ten ayrılıyorum. Kullanılan Düğme :- {CallbackQuery.from_user.mention}"
             )
             await stop_stream(chat_id)
             await CallbackQuery.message.delete()
@@ -388,7 +388,7 @@ async def play_playlist(_, CallbackQuery):
                 j += 1
                 for_p = 1
                 msg += f"{j}- {title[:50]}\n"
-                msg += f"Queued Position- {position}\n\n"
+                msg += f"Kuyruğa Atılmış Konum- {position}\n\n"
                 if videoid not in db_mem:
                     db_mem[videoid] = {}
                 db_mem[videoid]["username"] = CallbackQuery.from_user.mention
@@ -626,7 +626,7 @@ async def del_playlist(_, CallbackQuery):
         for shikhar in _playlist:
             await delete_playlist(user_id, shikhar, genre)
     await CallbackQuery.message.reply_text(
-        f"Başarıyla silindi {type}'s {genre} tüm çalma listesi\n\nTarafından :- {CallbackQuery.from_user.mention}"
+        f"Başarıyla silindi {type}'ler {genre} tüm çalma listesi\n\nTarafından :- {CallbackQuery.from_user.mention}"
     )
 
 
