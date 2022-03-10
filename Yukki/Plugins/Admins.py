@@ -36,11 +36,11 @@ __MODULE__ = "Admin"
 __HELP__ = """
 
 
-/durdur - Sesli sohbette çalan müziği duraklatma.
+/durdur - Sesli sohbette çalan müziği duraklatma .
 
-/devam - Sesli sohbette duraklatılmış müziği sürdürme.
+/devam - Sesli sohbette duraklatılmış müziği sürdürme .
 
-/atla - Sesli sohbette geçerli müzik çalmayı atlama
+/atla - Sesli sohbette geçerli müzik çalmayı atlama .
 
 /son - Sesli sohbetti kapatma.
 
