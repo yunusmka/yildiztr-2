@@ -70,7 +70,7 @@ def download(videoid: str, mystic, title) -> str:
                 taken = "00:00"
             size = d["_total_bytes_str"]
             mystic.edit(
-                f"**{MUSIC_BOT_NAME} İndirici 📥**\n\n**Başlık:** {title[:50]}:\n\n100% ████████████100%\n\n**⏱️ Geçen Süre:** {taken} Saniye\n\n🔊 Sesler işlendi[Talia Music]"
+                f"**{MUSIC_BOT_NAME} İndirici 📥**\n\n**Başlık:** {title[:50]}:\n\n100% ████████████100%\n\n**⏱️ Geçen Süre:** {taken} Saniye\n\n🔊 Sesler işlendi[Huawei Music]"
             )
 
     ydl_optssx = {
